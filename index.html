@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <title>AIA Philippines — Live Life Better</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --red: #d0021b;
       --red-dark: #a50016;
-      --red-light: #ff2d45;
       --cream: #fdf8f3;
       --white: #ffffff;
       --dark: #1a1a2e;
@@ -19,9 +18,7 @@
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
-
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--cream);
@@ -29,45 +26,75 @@
       overflow-x: hidden;
     }
 
-    /* NAV */
+    /* ───────── NAV ───────── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 1.2rem 4rem;
-      background: rgba(255,255,255,0.92);
+      padding: 1rem 2rem;
+      background: rgba(255,255,255,0.95);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(208,2,27,0.1);
     }
     .nav-logo {
       font-family: 'Playfair Display', serif;
-      font-size: 1.6rem; font-weight: 900;
+      font-size: 1.3rem; font-weight: 900;
       color: var(--red);
-      letter-spacing: -0.02em;
     }
-    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
     .nav-links a {
       text-decoration: none; color: var(--dark);
-      font-size: 0.875rem; font-weight: 500;
-      letter-spacing: 0.03em;
-      transition: color 0.2s;
+      font-size: 0.85rem; font-weight: 500; transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--red); }
     .nav-cta {
       background: var(--red); color: white;
-      padding: 0.6rem 1.5rem; border-radius: 2rem;
-      text-decoration: none; font-size: 0.875rem; font-weight: 600;
-      transition: background 0.2s, transform 0.2s;
+      padding: 0.55rem 1.3rem; border-radius: 2rem;
+      text-decoration: none; font-size: 0.82rem; font-weight: 600;
+      transition: background 0.2s; white-space: nowrap;
     }
-    .nav-cta:hover { background: var(--red-dark); transform: translateY(-1px); }
+    .nav-cta:hover { background: var(--red-dark); }
 
-    /* HERO */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px; background: none; border: none;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--dark); border-radius: 2px; transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none; position: fixed;
+      top: 60px; left: 0; right: 0;
+      background: white; z-index: 199;
+      padding: 1.5rem 2rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      flex-direction: column; gap: 0;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      text-decoration: none; color: var(--dark);
+      font-size: 1rem; font-weight: 500;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid var(--light-gray);
+    }
+    .mobile-menu .m-cta {
+      background: var(--red); color: white;
+      text-align: center; padding: 0.9rem;
+      border-radius: 0.5rem; margin-top: 1rem;
+      font-weight: 600; border-bottom: none;
+    }
+
+    /* ───────── HERO ───────── */
     .hero {
       min-height: 100vh;
       display: grid; grid-template-columns: 1fr 1fr;
       align-items: center;
-      padding: 8rem 4rem 4rem;
-      position: relative;
-      overflow: hidden;
+      padding: 7rem 4rem 4rem;
+      position: relative; overflow: hidden;
     }
     .hero::before {
       content: '';
@@ -82,317 +109,284 @@
       display: inline-flex; align-items: center; gap: 0.5rem;
       background: rgba(208,2,27,0.1); color: var(--red);
       padding: 0.4rem 1rem; border-radius: 2rem;
-      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em;
       text-transform: uppercase; margin-bottom: 1.5rem;
     }
     .hero-badge::before { content: '●'; font-size: 0.5rem; animation: pulse 2s infinite; }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
     h1 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
       font-weight: 900; line-height: 1.05;
-      letter-spacing: -0.03em;
-      margin-bottom: 1.5rem;
+      letter-spacing: -0.03em; margin-bottom: 1.2rem;
     }
     h1 span { color: var(--red); }
     .hero-sub {
-      font-size: 1.1rem; line-height: 1.7;
-      color: #4b5563; max-width: 480px;
-      margin-bottom: 2.5rem;
+      font-size: 1rem; line-height: 1.7;
+      color: #4b5563; max-width: 460px; margin-bottom: 2rem;
     }
     .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
     .btn-primary {
       background: var(--red); color: white;
-      padding: 0.9rem 2rem; border-radius: 0.5rem;
+      padding: 0.85rem 1.8rem; border-radius: 0.5rem;
       text-decoration: none; font-weight: 600; font-size: 0.9rem;
-      transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.5rem;
-    }
-    .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(208,2,27,0.35); }
-    .btn-secondary {
-      background: transparent; color: var(--dark);
-      padding: 0.9rem 2rem; border-radius: 0.5rem;
-      text-decoration: none; font-weight: 600; font-size: 0.9rem;
-      border: 2px solid var(--dark);
       transition: all 0.2s;
     }
+    .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(208,2,27,0.3); }
+    .btn-secondary {
+      background: transparent; color: var(--dark);
+      padding: 0.85rem 1.8rem; border-radius: 0.5rem;
+      text-decoration: none; font-weight: 600; font-size: 0.9rem;
+      border: 2px solid var(--dark); transition: all 0.2s;
+    }
     .btn-secondary:hover { background: var(--dark); color: white; }
-
     .hero-right {
       position: relative; z-index: 1;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      padding: 2rem;
+      display: flex; align-items: center; justify-content: center;
     }
-    .hero-stats {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-    }
+    .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     .stat-card {
       background: rgba(255,255,255,0.15);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 1rem;
-      padding: 1.8rem;
-      color: white; text-align: center;
-      transition: transform 0.2s;
+      border-radius: 1rem; padding: 1.5rem;
+      color: white; text-align: center; transition: transform 0.2s;
     }
     .stat-card:hover { transform: translateY(-4px); }
-    .stat-card .num {
+    .stat-num {
       font-family: 'Playfair Display', serif;
-      font-size: 2.5rem; font-weight: 900;
-      display: block; margin-bottom: 0.3rem;
+      font-size: 2.2rem; font-weight: 900; display: block; margin-bottom: 0.3rem;
     }
-    .stat-card .label { font-size: 0.78rem; opacity: 0.85; letter-spacing: 0.04em; }
+    .stat-label { font-size: 0.73rem; opacity: 0.85; }
 
-    /* ABOUT */
-    .section {
-      padding: 6rem 4rem;
-    }
+    /* ───────── SECTIONS ───────── */
+    .section { padding: 5rem 4rem; }
     .section-label {
-      font-size: 0.75rem; font-weight: 700;
+      font-size: 0.72rem; font-weight: 700;
       letter-spacing: 0.15em; text-transform: uppercase;
-      color: var(--red); margin-bottom: 1rem;
+      color: var(--red); margin-bottom: 0.8rem;
     }
     .section-title {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
       font-weight: 800; line-height: 1.15;
-      letter-spacing: -0.02em;
-      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em; margin-bottom: 1.2rem;
     }
 
-    .about-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 5rem; align-items: center;
-    }
-    .about-text p {
-      color: var(--gray); line-height: 1.8;
-      margin-bottom: 1rem; font-size: 1rem;
-    }
-    .about-pillars {
-      display: flex; flex-direction: column; gap: 1rem;
-      margin-top: 1.5rem;
-    }
-    .pillar {
-      display: flex; align-items: flex-start; gap: 1rem;
-      padding: 1.2rem;
-      background: white; border-radius: 0.75rem;
-      border-left: 4px solid var(--red);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-      transition: transform 0.2s;
-    }
-    .pillar:hover { transform: translateX(4px); }
-    .pillar-icon { font-size: 1.5rem; flex-shrink: 0; }
-    .pillar h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.2rem; }
-    .pillar p { font-size: 0.82rem; color: var(--gray); line-height: 1.5; }
-
+    /* ───────── ABOUT ───────── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
     .about-visual {
       background: linear-gradient(135deg, #d0021b, #8b0000);
-      border-radius: 1.5rem;
-      padding: 3rem;
-      color: white;
-      position: relative; overflow: hidden;
+      border-radius: 1.5rem; padding: 3rem;
+      color: white; position: relative; overflow: hidden;
     }
     .about-visual::before {
-      content: '"';
-      position: absolute; top: -1rem; left: 1rem;
+      content: '"'; position: absolute; top: -2rem; left: 1rem;
       font-family: 'Playfair Display', serif;
-      font-size: 12rem; opacity: 0.1;
-      line-height: 1;
+      font-size: 10rem; opacity: 0.1; line-height: 1;
     }
     .about-quote {
       font-family: 'Playfair Display', serif;
-      font-size: 1.6rem; font-weight: 700;
-      line-height: 1.4; margin-bottom: 1.5rem;
-      position: relative; z-index: 1;
+      font-size: 1.3rem; font-weight: 700; line-height: 1.5;
+      margin-bottom: 1.2rem; position: relative; z-index: 1;
     }
-    .about-mission-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
     .tag {
       background: rgba(255,255,255,0.2);
-      padding: 0.35rem 0.9rem; border-radius: 2rem;
-      font-size: 0.78rem; font-weight: 500;
+      padding: 0.3rem 0.8rem; border-radius: 2rem; font-size: 0.74rem;
     }
+    .about-text p { color: var(--gray); line-height: 1.8; margin-bottom: 1rem; font-size: 0.95rem; }
+    .pillars { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1.2rem; }
+    .pillar {
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding: 1rem 1.2rem; background: white; border-radius: 0.75rem;
+      border-left: 4px solid var(--red);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06); transition: transform 0.2s;
+    }
+    .pillar:hover { transform: translateX(4px); }
+    .p-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+    .pillar h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .pillar p { font-size: 0.8rem; color: var(--gray); line-height: 1.5; }
 
-    /* PRODUCTS */
+    /* ───────── PRODUCTS ───────── */
     .products-section { background: white; }
-    .products-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem; margin-top: 3rem;
-    }
+    .products-header { text-align: center; max-width: 560px; margin: 0 auto 3rem; }
+    .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
     .product-card {
-      border: 2px solid var(--light-gray);
-      border-radius: 1.25rem;
-      padding: 2rem;
-      transition: all 0.3s;
+      border: 2px solid var(--light-gray); border-radius: 1.25rem;
+      padding: 1.8rem; transition: all 0.3s; cursor: pointer;
       position: relative; overflow: hidden;
-      cursor: pointer;
     }
     .product-card::after {
-      content: '';
-      position: absolute; bottom: 0; left: 0; right: 0;
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
       height: 4px; background: var(--red);
-      transform: scaleX(0); transform-origin: left;
-      transition: transform 0.3s;
+      transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
     }
     .product-card:hover::after { transform: scaleX(1); }
     .product-card:hover {
-      border-color: var(--red);
-      box-shadow: 0 12px 32px rgba(208,2,27,0.12);
-      transform: translateY(-4px);
+      border-color: rgba(208,2,27,0.3);
+      box-shadow: 0 12px 28px rgba(208,2,27,0.1); transform: translateY(-4px);
     }
-    .product-icon {
-      width: 56px; height: 56px;
-      background: rgba(208,2,27,0.08);
-      border-radius: 1rem;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.6rem; margin-bottom: 1.2rem;
+    .p-icon-box {
+      width: 52px; height: 52px; background: rgba(208,2,27,0.08);
+      border-radius: 0.9rem; display: flex; align-items: center;
+      justify-content: center; font-size: 1.5rem; margin-bottom: 1rem;
     }
-    .product-card h3 {
-      font-size: 1.1rem; font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-    .product-card p { font-size: 0.85rem; color: var(--gray); line-height: 1.6; }
+    .product-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .product-card p { font-size: 0.82rem; color: var(--gray); line-height: 1.6; }
     .product-tag {
       display: inline-block; margin-top: 0.8rem;
-      font-size: 0.72rem; font-weight: 700;
-      letter-spacing: 0.06em; text-transform: uppercase;
-      color: var(--red);
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.05em; text-transform: uppercase; color: var(--red);
     }
 
-    /* VITALITY */
-    .vitality-section {
-      background: var(--dark);
-      color: white;
-    }
-    .vitality-inner {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 5rem; align-items: center;
-    }
+    /* ───────── VITALITY ───────── */
+    .vitality-section { background: var(--dark); color: white; }
     .vitality-section .section-label { color: var(--gold); }
     .vitality-section .section-title { color: white; }
-    .vitality-desc { color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 2rem; }
-    .vitality-steps { display: flex; flex-direction: column; gap: 1rem; }
+    .vitality-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .vitality-desc { color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 2rem; font-size: 0.95rem; }
+    .steps { display: flex; flex-direction: column; gap: 0.8rem; }
     .step {
-      display: flex; align-items: center; gap: 1rem;
-      padding: 1rem 1.2rem;
-      background: rgba(255,255,255,0.05);
-      border-radius: 0.75rem;
-      border: 1px solid rgba(255,255,255,0.08);
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1rem 1.2rem; background: rgba(255,255,255,0.05);
+      border-radius: 0.75rem; border: 1px solid rgba(255,255,255,0.08);
     }
     .step-num {
-      width: 36px; height: 36px; flex-shrink: 0;
+      width: 32px; height: 32px; flex-shrink: 0;
       background: var(--red); border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-weight: 700; font-size: 0.85rem;
+      font-weight: 700; font-size: 0.8rem;
     }
-    .step p { font-size: 0.9rem; color: rgba(255,255,255,0.8); }
-
-    .vitality-right {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
+    .step p { font-size: 0.88rem; color: rgba(255,255,255,0.8); line-height: 1.5; }
+    .vitality-benefits { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
     .benefit-card {
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 1rem; padding: 1.5rem;
-      text-align: center;
-      transition: all 0.2s;
+      border-radius: 1rem; padding: 1.3rem;
+      text-align: center; transition: all 0.2s;
     }
     .benefit-card:hover { background: rgba(208,2,27,0.2); border-color: var(--red); }
-    .benefit-card .emoji { font-size: 2rem; display: block; margin-bottom: 0.5rem; }
-    .benefit-card h4 { font-size: 0.9rem; font-weight: 600; color: white; }
+    .benefit-card .emoji { font-size: 1.8rem; display: block; margin-bottom: 0.4rem; }
+    .benefit-card h4 { font-size: 0.82rem; font-weight: 600; color: white; }
 
-    /* WHY AIA */
-    .why-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 2rem; margin-top: 3rem;
-    }
+    /* ───────── WHY AIA ───────── */
+    .why-section { background: var(--cream); }
+    .why-header { text-align: center; max-width: 560px; margin: 0 auto 3rem; }
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
     .why-card {
-      text-align: center; padding: 2.5rem 2rem;
-      border-radius: 1.25rem;
-      background: white;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
-      transition: transform 0.2s;
+      text-align: center; padding: 2.2rem 1.5rem;
+      border-radius: 1.25rem; background: white;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06); transition: transform 0.2s;
     }
     .why-card:hover { transform: translateY(-6px); }
-    .why-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
-    .why-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.6rem; }
-    .why-card p { font-size: 0.85rem; color: var(--gray); line-height: 1.6; }
+    .why-icon { font-size: 2.2rem; margin-bottom: 0.8rem; display: block; }
+    .why-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .why-card p { font-size: 0.82rem; color: var(--gray); line-height: 1.6; }
 
-    /* WELLNESS */
-    .wellness-section { background: var(--cream); }
-    .wellness-banner {
+    /* ───────── CTA ───────── */
+    .cta-section { padding: 3rem 4rem 5rem; }
+    .cta-banner {
       background: linear-gradient(135deg, var(--red) 0%, #8b0000 100%);
-      border-radius: 1.5rem;
-      padding: 4rem;
-      display: grid; grid-template-columns: 1fr auto;
-      align-items: center; gap: 3rem;
-      color: white;
+      border-radius: 1.5rem; padding: 4rem 3.5rem;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 2rem;
+      color: white; flex-wrap: wrap;
     }
-    .wellness-banner h2 {
+    .cta-banner h2 {
       font-family: 'Playfair Display', serif;
-      font-size: 2.2rem; font-weight: 800;
-      margin-bottom: 0.8rem;
+      font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; margin-bottom: 0.7rem;
     }
-    .wellness-banner p { opacity: 0.85; line-height: 1.7; max-width: 500px; }
-    .wellness-btn {
+    .cta-banner p { opacity: 0.85; font-size: 0.95rem; line-height: 1.7; max-width: 480px; }
+    .cta-btn {
       background: white; color: var(--red);
       padding: 1rem 2rem; border-radius: 0.5rem;
-      text-decoration: none; font-weight: 700; white-space: nowrap;
-      transition: all 0.2s;
+      text-decoration: none; font-weight: 700;
+      white-space: nowrap; flex-shrink: 0; transition: transform 0.2s;
     }
-    .wellness-btn:hover { transform: scale(1.03); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+    .cta-btn:hover { transform: scale(1.03); }
 
-    /* FOOTER */
-    footer {
-      background: var(--dark); color: white;
-      padding: 4rem;
-    }
-    .footer-top {
+    /* ───────── FOOTER ───────── */
+    footer { background: var(--dark); color: white; padding: 4rem; }
+    .footer-grid {
       display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 3rem; margin-bottom: 3rem;
-      padding-bottom: 3rem;
+      gap: 2.5rem; margin-bottom: 3rem; padding-bottom: 3rem;
       border-bottom: 1px solid rgba(255,255,255,0.1);
     }
-    .footer-brand .logo {
+    .f-logo {
       font-family: 'Playfair Display', serif;
-      font-size: 1.8rem; font-weight: 900;
-      color: var(--red); margin-bottom: 1rem;
+      font-size: 1.5rem; font-weight: 900; color: var(--red); margin-bottom: 0.8rem;
     }
-    .footer-brand p { color: rgba(255,255,255,0.55); font-size: 0.85rem; line-height: 1.7; }
-    .footer-col h4 { font-weight: 700; margin-bottom: 1.2rem; font-size: 0.9rem; }
+    .footer-brand p { color: rgba(255,255,255,0.5); font-size: 0.82rem; line-height: 1.7; }
+    .hotline { color: var(--red); font-weight: 700; font-size: 0.9rem; }
+    .footer-col h4 { font-weight: 700; margin-bottom: 1rem; font-size: 0.88rem; }
     .footer-col ul { list-style: none; }
-    .footer-col li { margin-bottom: 0.6rem; }
-    .footer-col a { text-decoration: none; color: rgba(255,255,255,0.55); font-size: 0.83rem; transition: color 0.2s; }
+    .footer-col li { margin-bottom: 0.5rem; }
+    .footer-col a { text-decoration: none; color: rgba(255,255,255,0.5); font-size: 0.8rem; transition: color 0.2s; }
     .footer-col a:hover { color: white; }
     .footer-bottom {
       display: flex; justify-content: space-between; align-items: center;
-      color: rgba(255,255,255,0.4); font-size: 0.78rem;
+      gap: 1rem; flex-wrap: wrap;
+      color: rgba(255,255,255,0.35); font-size: 0.75rem;
     }
-    .hotline { color: var(--red); font-weight: 700; }
+    .footer-bottom a { color: var(--red); text-decoration: none; }
 
-    /* ANIMATIONS */
-    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s; }
+    /* ───────── ANIMATIONS ───────── */
+    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s, transform 0.6s; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-    @media (max-width: 900px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { display: none; }
-      .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; }
+    /* ═══════════ RESPONSIVE ═══════════ */
+    @media (max-width: 1024px) {
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 0.9rem 1.2rem; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+
+      .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; min-height: auto; }
       .hero::before { display: none; }
+      .hero-text { text-align: center; }
+      .hero-sub { max-width: 100%; }
+      .hero-btns { justify-content: center; }
       .hero-right { display: none; }
-      .section { padding: 4rem 1.5rem; }
-      .about-grid, .vitality-inner { grid-template-columns: 1fr; gap: 2rem; }
+
+      .section { padding: 3.5rem 1.5rem; }
+      .cta-section { padding: 1.5rem 1.5rem 3.5rem; }
+      footer { padding: 3rem 1.5rem; }
+
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .about-visual { order: -1; }
+
+      .products-grid { grid-template-columns: 1fr; gap: 1rem; }
+
+      .vitality-inner { grid-template-columns: 1fr; gap: 2rem; }
+
+      .why-grid { grid-template-columns: 1fr 1fr; }
+
+      .cta-banner { flex-direction: column; text-align: center; padding: 2.5rem 1.5rem; }
+      .cta-btn { width: 100%; text-align: center; }
+
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 2rem; }
+      .hero-btns { flex-direction: column; }
+      .btn-primary, .btn-secondary { text-align: center; }
       .why-grid { grid-template-columns: 1fr; }
-      .footer-top { grid-template-columns: 1fr 1fr; }
-      .wellness-banner { grid-template-columns: 1fr; }
-      .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .vitality-benefits { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAVIGATION -->
+  <!-- NAV -->
   <nav>
     <div class="nav-logo">AIA Philippines</div>
     <ul class="nav-links">
@@ -402,37 +396,37 @@
       <li><a href="#why">Why AIA</a></li>
     </ul>
     <a href="https://www.aia.com.ph/en" target="_blank" class="nav-cta">Get a Plan →</a>
+    <button class="hamburger" id="hamburger" aria-label="Open Menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" onclick="closeMenu()">About AIA</a>
+    <a href="#products" onclick="closeMenu()">Our Products</a>
+    <a href="#vitality" onclick="closeMenu()">AIA Vitality</a>
+    <a href="#why" onclick="closeMenu()">Why AIA</a>
+    <a href="https://www.aia.com.ph/en" target="_blank" class="m-cta">Get a Plan →</a>
+  </div>
 
   <!-- HERO -->
   <section class="hero">
     <div class="hero-text fade-in">
       <span class="hero-badge">Leading Life Insurance in the Philippines</span>
-      <h1>Live Life<br><span>Healthier,</span><br>Better & Longer</h1>
-      <p class="hero-sub">AIA Philippines is part of AIA Group — Asia's largest independent life insurance group — dedicated to helping Filipinos secure their future and embrace a healthier life.</p>
+      <h1>Live Life <span>Healthier,</span> Better & Longer</h1>
+      <p class="hero-sub">AIA Philippines is part of AIA Group — Asia's largest independent life insurance group — helping Filipinos secure their future and live healthier lives.</p>
       <div class="hero-btns">
         <a href="#products" class="btn-primary">Explore Products ↓</a>
         <a href="#about" class="btn-secondary">Our Story</a>
       </div>
     </div>
-    <div class="hero-right">
+    <div class="hero-right fade-in">
       <div class="hero-stats">
-        <div class="stat-card">
-          <span class="num">100+</span>
-          <span class="label">Years of Expertise in Asia</span>
-        </div>
-        <div class="stat-card">
-          <span class="num">18M+</span>
-          <span class="label">Lives Covered in the Philippines</span>
-        </div>
-        <div class="stat-card">
-          <span class="num">100</span>
-          <span class="label">Critical Illnesses Covered</span>
-        </div>
-        <div class="stat-card">
-          <span class="num">80</span>
-          <span class="label">Coverage Up to Age 80</span>
-        </div>
+        <div class="stat-card"><span class="stat-num">100+</span><span class="stat-label">Years of Expertise in Asia</span></div>
+        <div class="stat-card"><span class="stat-num">18M+</span><span class="stat-label">Lives Covered in PH</span></div>
+        <div class="stat-card"><span class="stat-num">100</span><span class="stat-label">Critical Illnesses Covered</span></div>
+        <div class="stat-card"><span class="stat-num">18</span><span class="stat-label">Asia-Pacific Markets</span></div>
       </div>
     </div>
   </section>
@@ -442,42 +436,24 @@
     <div class="about-grid">
       <div class="about-visual fade-in">
         <p class="about-quote">"The Healthiest, Most Protected, Most Trusted and Most Successful Insurance Company in the Philippines."</p>
-        <p style="opacity:0.75; font-size:0.9rem; margin-bottom:1.5rem;">— AIA Philippines Vision</p>
-        <div class="about-mission-tags">
+        <p style="opacity:0.7;font-size:0.85rem;margin-bottom:1.2rem;">— AIA Philippines Vision</p>
+        <div class="tags">
           <span class="tag">Trusted Since 1983</span>
-          <span class="tag">Makati City, Philippines</span>
-          <span class="tag">Part of AIA Group</span>
-          <span class="tag">Gold Trusted Brand Award</span>
-          <span class="tag">Insurance Asia Awards Winner 2025</span>
+          <span class="tag">Makati City</span>
+          <span class="tag">AIA Group</span>
+          <span class="tag">Gold Trusted Brand</span>
+          <span class="tag">Insurance Asia Awards 2025</span>
         </div>
       </div>
       <div class="about-text fade-in">
         <p class="section-label">Who We Are</p>
         <h2 class="section-title">More Than Insurance — A Partner for Life</h2>
-        <p>AIA Philippines, formerly Philam Life, is a subsidiary of AIA Group Limited — the largest independent publicly listed pan-Asian life insurance group. Regulated by the Insurance Commission of the Philippines, AIA PH serves millions of Filipinos with trusted, world-class insurance solutions.</p>
-        <p>With headquarters at the AIA Tower in Makati, AIA Philippines combines global expertise with deep local understanding to deliver products that genuinely protect, nurture, and grow with you and your family.</p>
-        <div class="about-pillars">
-          <div class="pillar">
-            <div class="pillar-icon">🎯</div>
-            <div>
-              <h4>Our Purpose</h4>
-              <p>Help people live Healthier, Longer, Better Lives — at every stage of their journey.</p>
-            </div>
-          </div>
-          <div class="pillar">
-            <div class="pillar-icon">🛡️</div>
-            <div>
-              <h4>Our Commitment</h4>
-              <p>Financial security for every Filipino through accessible, meaningful insurance protection.</p>
-            </div>
-          </div>
-          <div class="pillar">
-            <div class="pillar-icon">🌍</div>
-            <div>
-              <h4>Our Strength</h4>
-              <p>Backed by Asia's largest independent life insurer with over 100 years of experience across 18 markets.</p>
-            </div>
-          </div>
+        <p>AIA Philippines is a subsidiary of AIA Group Limited — the largest independent publicly listed pan-Asian life insurance group. Regulated by the Insurance Commission of the Philippines, AIA PH serves millions of Filipinos with trusted insurance solutions.</p>
+        <p>With headquarters at the AIA Tower in Makati, AIA Philippines combines global expertise with deep local understanding to deliver products that genuinely protect and grow with you and your family.</p>
+        <div class="pillars">
+          <div class="pillar"><div class="p-icon">🎯</div><div><h4>Our Purpose</h4><p>Help people live Healthier, Longer, Better Lives at every stage of their journey.</p></div></div>
+          <div class="pillar"><div class="p-icon">🛡️</div><div><h4>Our Commitment</h4><p>Financial security for every Filipino through accessible, meaningful protection.</p></div></div>
+          <div class="pillar"><div class="p-icon">🌍</div><div><h4>Our Strength</h4><p>Backed by Asia's largest independent life insurer with 100+ years across 18 markets.</p></div></div>
         </div>
       </div>
     </div>
@@ -485,214 +461,135 @@
 
   <!-- PRODUCTS -->
   <section id="products" class="section products-section">
-    <div style="text-align:center; max-width:600px; margin:0 auto;">
+    <div class="products-header fade-in">
       <p class="section-label">What We Offer</p>
       <h2 class="section-title">Complete Protection for Every Chapter of Life</h2>
     </div>
-    <div class="products-grid fade-in">
-      <div class="product-card">
-        <div class="product-icon">🛡️</div>
-        <h3>Life Protection</h3>
-        <p>Flexible life insurance plans that safeguard your loved ones financially should the unexpected happen. Includes AIA Goals Protect and unit-linked plans with investment components.</p>
-        <span class="product-tag">For Individuals →</span>
-      </div>
-      <div class="product-card">
-        <div class="product-icon">❤️</div>
-        <h3>Health Insurance</h3>
-        <p>Coverage against 100 critical illnesses until age 100 with AIA Critical Protect 100. Stay protected against cancer, heart disease, stroke, and more with AIA Health Cover.</p>
-        <span class="product-tag">For Individuals →</span>
-      </div>
-      <div class="product-card">
-        <div class="product-icon">🏥</div>
-        <h3>Medical Insurance</h3>
-        <p>AIA Med-Assist co-pays 90% of your in-patient hospital bills until age 80. Real medical coverage when you need it most, without worrying about the bill.</p>
-        <span class="product-tag">For Individuals →</span>
-      </div>
-      <div class="product-card">
-        <div class="product-icon">💰</div>
-        <h3>Savings Plans</h3>
-        <p>Build your dream future with AIA Future Builder — a peso-denominated variable life insurance plan. Save and grow your money for education, retirement, or major milestones.</p>
-        <span class="product-tag">For Individuals →</span>
-      </div>
-      <div class="product-card">
-        <div class="product-icon">📈</div>
-        <h3>Investment-Linked Plans</h3>
-        <p>Grow your wealth while staying protected with investment-linked insurance plans. Access a range of managed funds with professional fund managers and track performance online.</p>
-        <span class="product-tag">For Individuals →</span>
-      </div>
-      <div class="product-card">
-        <div class="product-icon">🏢</div>
-        <h3>Employee Benefits & Engagement</h3>
-        <p>Comprehensive group insurance and wellness solutions for businesses. Protect your most valuable asset — your people — with AIA's tailored corporate plans.</p>
-        <span class="product-tag">For Businesses →</span>
-      </div>
+    <div class="products-grid">
+      <div class="product-card fade-in"><div class="p-icon-box">🛡️</div><h3>Life Protection</h3><p>Flexible life insurance plans that safeguard your loved ones. Includes AIA Goals Protect with investment components tailored to your goals.</p><span class="product-tag">For Individuals →</span></div>
+      <div class="product-card fade-in"><div class="p-icon-box">❤️</div><h3>Health Insurance</h3><p>Coverage against 100 critical illnesses until age 100. Protection from cancer, heart disease, stroke, and more with AIA Critical Protect 100.</p><span class="product-tag">For Individuals →</span></div>
+      <div class="product-card fade-in"><div class="p-icon-box">🏥</div><h3>Medical Insurance</h3><p>AIA Med-Assist co-pays 90% of in-patient hospital bills until age 80. Real coverage when you need it most, without worrying about the bill.</p><span class="product-tag">For Individuals →</span></div>
+      <div class="product-card fade-in"><div class="p-icon-box">💰</div><h3>Savings Plans</h3><p>Build your dream future with AIA Future Builder — a peso-denominated variable life insurance plan for education, retirement, or major milestones.</p><span class="product-tag">For Individuals →</span></div>
+      <div class="product-card fade-in"><div class="p-icon-box">📈</div><h3>Investment-Linked</h3><p>Grow your wealth while staying protected. Access managed funds with professional managers and track performance online anytime.</p><span class="product-tag">For Individuals →</span></div>
+      <div class="product-card fade-in"><div class="p-icon-box">🏢</div><h3>Employee Benefits</h3><p>Comprehensive group insurance and wellness solutions for businesses. Protect your people with AIA's tailored corporate plans.</p><span class="product-tag">For Businesses →</span></div>
     </div>
   </section>
 
-  <!-- AIA VITALITY -->
+  <!-- VITALITY -->
   <section id="vitality" class="section vitality-section">
     <div class="vitality-inner">
       <div class="fade-in">
         <p class="section-label">AIA Vitality</p>
         <h2 class="section-title">Rewarding You for Living Healthier</h2>
-        <p class="vitality-desc">AIA Vitality is a science-backed wellness program that motivates you to take charge of your health — and rewards you for it. The healthier you live, the more you earn.</p>
-        <div class="vitality-steps">
-          <div class="step">
-            <div class="step-num">1</div>
-            <p><strong>Know your health</strong> — Complete a health assessment to understand your current status and get a Vitality Age.</p>
-          </div>
-          <div class="step">
-            <div class="step-num">2</div>
-            <p><strong>Improve your health</strong> — Take steps to get active, eat well, and have regular check-ups to earn Vitality Points.</p>
-          </div>
-          <div class="step">
-            <div class="step-num">3</div>
-            <p><strong>Enjoy rewards</strong> — Redeem points for discounts, cashback, and exclusive partner privileges.</p>
-          </div>
+        <p class="vitality-desc">AIA Vitality is a science-backed wellness program that motivates you to take charge of your health — and rewards you every step of the way.</p>
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><p><strong>Know your health</strong> — Complete a health assessment and get your Vitality Age.</p></div>
+          <div class="step"><div class="step-num">2</div><p><strong>Improve your health</strong> — Get active, eat well, have check-ups, and earn Vitality Points.</p></div>
+          <div class="step"><div class="step-num">3</div><p><strong>Enjoy rewards</strong> — Redeem points for discounts, cashback, and exclusive perks.</p></div>
         </div>
       </div>
-      <div class="vitality-right fade-in">
-        <div class="benefit-card">
-          <span class="emoji">🏃</span>
-          <h4>Fitness Rewards</h4>
-        </div>
-        <div class="benefit-card">
-          <span class="emoji">🥗</span>
-          <h4>Healthy Eating Discounts</h4>
-        </div>
-        <div class="benefit-card">
-          <span class="emoji">🏨</span>
-          <h4>Travel & Hotel Perks</h4>
-        </div>
-        <div class="benefit-card">
-          <span class="emoji">🛍️</span>
-          <h4>Shopping Cashback</h4>
-        </div>
-        <div class="benefit-card">
-          <span class="emoji">🔬</span>
-          <h4>Health Screenings</h4>
-        </div>
-        <div class="benefit-card">
-          <span class="emoji">💊</span>
-          <h4>Pharmacy Benefits</h4>
-        </div>
+      <div class="vitality-benefits fade-in">
+        <div class="benefit-card"><span class="emoji">🏃</span><h4>Fitness Rewards</h4></div>
+        <div class="benefit-card"><span class="emoji">🥗</span><h4>Healthy Eating</h4></div>
+        <div class="benefit-card"><span class="emoji">🏨</span><h4>Travel Perks</h4></div>
+        <div class="benefit-card"><span class="emoji">🛍️</span><h4>Shopping Cashback</h4></div>
+        <div class="benefit-card"><span class="emoji">🔬</span><h4>Health Screenings</h4></div>
+        <div class="benefit-card"><span class="emoji">💊</span><h4>Pharmacy Benefits</h4></div>
       </div>
     </div>
   </section>
 
   <!-- WHY AIA -->
-  <section id="why" class="section" style="background: var(--cream);">
-    <div style="text-align:center; max-width:600px; margin:0 auto;">
+  <section id="why" class="section why-section">
+    <div class="why-header fade-in">
       <p class="section-label">Why Choose AIA</p>
       <h2 class="section-title">Trusted by Millions of Filipinos</h2>
     </div>
-    <div class="why-grid fade-in">
-      <div class="why-card">
-        <span class="why-icon">🏆</span>
-        <h3>Award-Winning</h3>
-        <p>Winner of Reader's Digest Gold Trusted Brand Award and multiple Insurance Asia Awards 2025. Recognized consistently for excellence and trust.</p>
-      </div>
-      <div class="why-card">
-        <span class="why-icon">🌏</span>
-        <h3>Global Backing, Local Heart</h3>
-        <p>Part of AIA Group — present in 18 Asia-Pacific markets — but with deep roots and dedicated service for every Filipino family.</p>
-      </div>
-      <div class="why-card">
-        <span class="why-icon">⚡</span>
-        <h3>Easy Digital Access</h3>
-        <p>Manage policies, file claims, track status, and pay premiums anytime through the My AIA customer portal — always at your fingertips.</p>
-      </div>
-      <div class="why-card">
-        <span class="why-icon">🤝</span>
-        <h3>Licensed Life Planners</h3>
-        <p>Work with IC-licensed AIA Life Planners who provide personalized advice and help you find the right coverage for your specific needs.</p>
-      </div>
-      <div class="why-card">
-        <span class="why-icon">📋</span>
-        <h3>Transparent & Regulated</h3>
-        <p>Duly regulated by the Insurance Commission of the Philippines with strong corporate governance and a firm Customer Charter.</p>
-      </div>
-      <div class="why-card">
-        <span class="why-icon">💚</span>
-        <h3>ESG Commitment</h3>
-        <p>AIA Philippines actively invests in environmental, social, and governance initiatives — from women's health advocacy to financial literacy programs.</p>
-      </div>
+    <div class="why-grid">
+      <div class="why-card fade-in"><span class="why-icon">🏆</span><h3>Award-Winning</h3><p>Gold Trusted Brand Award winner and multiple Insurance Asia Awards 2025. Recognized consistently for excellence and trust.</p></div>
+      <div class="why-card fade-in"><span class="why-icon">🌏</span><h3>Global Backing, Local Heart</h3><p>Part of AIA Group — 18 Asia-Pacific markets — with deep roots and dedicated service for every Filipino family.</p></div>
+      <div class="why-card fade-in"><span class="why-icon">⚡</span><h3>Easy Digital Access</h3><p>Manage policies, file claims, and pay premiums anytime via the My AIA customer portal — always at your fingertips.</p></div>
+      <div class="why-card fade-in"><span class="why-icon">🤝</span><h3>Licensed Life Planners</h3><p>Work with IC-licensed AIA Life Planners who give personalized advice and help you find the right coverage.</p></div>
+      <div class="why-card fade-in"><span class="why-icon">📋</span><h3>Transparent & Regulated</h3><p>Regulated by the Insurance Commission of the Philippines with strong corporate governance and a firm Customer Charter.</p></div>
+      <div class="why-card fade-in"><span class="why-icon">💚</span><h3>ESG Commitment</h3><p>Investing in environmental, social, and governance initiatives — from women's health advocacy to financial literacy programs.</p></div>
     </div>
   </section>
 
-  <!-- WELLNESS CTA -->
-  <section class="section wellness-section">
-    <div class="wellness-banner fade-in">
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-banner fade-in">
       <div>
         <h2>Ready to Secure Your Future?</h2>
-        <p>Use AIA's free Financial Needs Calculator to discover the right plan for your life goals — protection, health, savings, and investment all in one place.</p>
+        <p>Use AIA's free Financial Needs Calculator to discover the right plan for your goals — protection, health, savings, and investment in one place.</p>
       </div>
-      <a href="https://www.aia.com.ph/en" target="_blank" class="wellness-btn">Start Planning Today</a>
+      <a href="https://www.aia.com.ph/en" target="_blank" class="cta-btn">Start Planning Today →</a>
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-top">
+    <div class="footer-grid">
       <div class="footer-brand">
-        <div class="logo">AIA Philippines</div>
-        <p>23rd Floor, AIA Tower, 8767 Paseo de Roxas,<br>Makati City 1226, Philippines</p>
-        <br>
-        <p>Hotline: <span class="hotline">(02) 8528 2000</span></p>
-        <p style="margin-top:0.4rem;">Toll-Free: 1800 10528 2000</p>
+        <div class="f-logo">AIA Philippines</div>
+        <p>23rd Floor, AIA Tower,<br>8767 Paseo de Roxas,<br>Makati City 1226, Philippines</p><br>
+        <p class="hotline">(02) 8528 2000</p>
+        <p style="color:rgba(255,255,255,0.5);font-size:0.8rem;margin-top:0.3rem;">Toll-Free: 1800 10528 2000</p>
       </div>
       <div class="footer-col">
-        <h4>Our Products</h4>
+        <h4>Products</h4>
         <ul>
           <li><a href="https://www.aia.com.ph/en/our-products/protection" target="_blank">Protection</a></li>
           <li><a href="https://www.aia.com.ph/en/our-products/health" target="_blank">Health</a></li>
           <li><a href="https://www.aia.com.ph/en/our-products/medical" target="_blank">Medical</a></li>
           <li><a href="https://www.aia.com.ph/en/our-products/savings" target="_blank">Savings</a></li>
           <li><a href="https://www.aia.com.ph/en/our-products/investment" target="_blank">Investment</a></li>
-          <li><a href="https://www.aia.com.ph/en/our-products/employee-benefits" target="_blank">Employee Benefits</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>About Us</h4>
         <ul>
           <li><a href="https://www.aia.com.ph/en/about-us/about-aia-philippines" target="_blank">About AIA PH</a></li>
-          <li><a href="https://www.aia.com.ph/en/about-us/our-management-team" target="_blank">Leadership Team</a></li>
+          <li><a href="https://www.aia.com.ph/en/about-us/our-management-team" target="_blank">Leadership</a></li>
           <li><a href="https://www.aia.com.ph/en/about-us/careers" target="_blank">Careers</a></li>
           <li><a href="https://www.aia.com.ph/en/about-us/media-centre" target="_blank">Media Center</a></li>
-          <li><a href="https://www.aia.com.ph/en/about-us/corporate-governance" target="_blank">Corporate Governance</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Help & Support</h4>
+        <h4>Support</h4>
         <ul>
           <li><a href="https://www.aia.com.ph/en/help-support/claim-guide" target="_blank">File a Claim</a></li>
           <li><a href="https://www.aia.com.ph/en/help-support/payment-facilities" target="_blank">Pay Premium</a></li>
           <li><a href="https://www.aia.com.ph/en/help-support/frequently-asked-questions" target="_blank">FAQs</a></li>
           <li><a href="https://www.aia.com.ph/en/help-support/locate-us" target="_blank">Find a Branch</a></li>
-          <li><a href="https://www.aia.com.ph/en/health-and-wellness/aia-vitality" target="_blank">AIA Vitality</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2025 AIA Group Limited and its subsidiaries. All rights reserved. AIA PH is regulated by the Insurance Commission of the Philippines.</p>
-      <p>This is an informational page. Visit <a href="https://www.aia.com.ph" target="_blank" style="color:var(--red)">aia.com.ph</a> for official details.</p>
+      <p>© 2025 AIA Group Limited and its subsidiaries. All rights reserved. Regulated by the Insurance Commission of the Philippines.</p>
+      <p>Visit <a href="https://www.aia.com.ph" target="_blank">aia.com.ph</a> for official information.</p>
     </div>
   </footer>
 
   <script>
-    // Scroll animations
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+    function closeMenu() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    }
+
     const faders = document.querySelectorAll('.fade-in');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), i * 80);
-        }
+        if (entry.isIntersecting) setTimeout(() => entry.target.classList.add('visible'), i * 60);
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.08 });
     faders.forEach(el => observer.observe(el));
-
-    // Trigger hero immediately
-    document.querySelector('.hero .fade-in').classList.add('visible');
+    document.querySelectorAll('.hero .fade-in').forEach(el => el.classList.add('visible'));
   </script>
 </body>
 </html>
